@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Local Shop Website Demos — Northern Virginia</title>
+  <meta name="description" content="Mobile-first website previews for independent local businesses in Stafford, Dumfries, Triangle, and Woodbridge.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A;
+      --surface: #1E293B;
+      --surface-border: #334155;
+      --primary: #38BDF8;
+      --primary-hover: #0EA5E9;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --accent: #F59E0B;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+    header {
+      background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 32px 20px 24px;
+      text-align: center;
+    }
+    .header-kicker {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .header-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 20px;
+    }
+    .controls {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .search-input {
+      width: 100%;
+      background: #090E17;
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      font-size: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .chip {
+      background: #090E17;
+      border: 1px solid var(--surface-border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip.active, .chip:hover {
+      background: var(--primary);
+      color: #090E17;
+      border-color: var(--primary);
+    }
+    main {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      padding: 0 16px;
+    }
+    .stats-bar {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .prospect-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .prospect-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .badges {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .badge-city { background: rgba(56, 189, 248, 0.15); color: var(--primary); }
+    .badge-cat { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .card-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .card-details {
+      border-top: 1px solid var(--surface-border);
+      padding: 14px 0;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .phone-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .phone-link:hover { text-decoration: underline; color: var(--primary); }
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      min-height: 44px;
+      transition: background 0.2s;
+    }
+    .btn-primary {
+      flex: 1;
+      background: var(--primary);
+      color: #090E17;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+    .btn-secondary {
+      background: #090E17;
+      color: var(--text);
+      border: 1px solid var(--surface-border);
+    }
+    .btn-secondary:hover {
+      background: #1E293B;
+      border-color: var(--muted);
+    }
+    .btn-copied {
+      background: #10B981 !important;
+      color: #FFFFFF !important;
+      border-color: #10B981 !important;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10B981;
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="header-kicker">Interactive Sales Kit</p>
+    <h1>Local Storefront Website Demos</h1>
+    <p class="header-sub">Stafford · Dumfries · Triangle · Woodbridge corridor. Tap to launch any working mobile prototype or copy direct client links.</p>
+    
+    <div class="controls">
+      <input type="search" id="searchInput" class="search-input" placeholder="Search by business name, city, or trade..." autocomplete="off">
+      <div class="filter-chips">
+        <button class="chip active" data-filter="all">All (11)</button>
+        <button class="chip" data-filter="Barbershop">Barbershops</button>
+        <button class="chip" data-filter="Shoe Repair">Shoe Repair</button>
+        <button class="chip" data-filter="Auto Repair">Auto Repair</button>
+        <button class="chip" data-filter="Bakery & Cafe">Bakery & Cafe</button>
+        <button class="chip" data-filter="Cleaners & Tailoring">Tailors & Cleaners</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="stats-bar" id="statsBar">Showing all 11 businesses</div>
+    <div class="catalog-grid" id="catalogGrid">
+      
+        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="cafe miki | woodbridge, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Bakery & Cafe</span>
+            </div>
+            <h2 class="card-title">Cafe Miki | Woodbridge, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">14569 Potomac Mills Road, Woodbridge, Virginia 22192</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7038888046">(703) 888-8046</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="cafe-miki/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/cafe-miki/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Shoe Repair" data-city="Woodbridge" data-name="domenick's shoe repair | woodbridge, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Shoe Repair</span>
+            </div>
+            <h2 class="card-title">Domenick's Shoe Repair | Woodbridge, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">4615 Dale Blvd, Woodbridge, VA 22193</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7036224844">(703) 622-4844</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="domenick-shoe-repair/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/domenick-shoe-repair/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Cleaners & Tailoring" data-city="Woodbridge" data-name="early bird cleaners | stafford, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Cleaners & Tailoring</span>
+            </div>
+            <h2 class="card-title">Early Bird Cleaners | Stafford, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:5406595201">(540) 659-5201</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="early-bird-cleaners/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/early-bird-cleaners/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="el molino panaderia | woodbridge, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Bakery & Cafe</span>
+            </div>
+            <h2 class="card-title">El Molino Panaderia | Woodbridge, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">14450 Richmond Hwy, Woodbridge, VA 22191</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034901711">(703) 490-1711</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="el-molino-panaderia/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/el-molino-panaderia/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="farm cafe grill deli | woodbridge, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Bakery & Cafe</span>
+            </div>
+            <h2 class="card-title">Farm Cafe Grill Deli | Woodbridge, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">14850 Farm Creek Drive, Woodbridge, VA 22191</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034903204">(703) 490-3204</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="farm-cafe/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/farm-cafe/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Barbershop" data-city="Woodbridge" data-name="kim's barber shop | stafford, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Barbershop</span>
+            </div>
+            <h2 class="card-title">Kim's Barber Shop | Stafford, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:5402880123">(540) 288-0123</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="kims-barber-shop/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/kims-barber-shop/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Barbershop" data-city="Stafford" data-name="lee's barber shop | stafford, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Stafford</span>
+              <span class="badge badge-cat">Barbershop</span>
+            </div>
+            <h2 class="card-title">Lee's Barber Shop | Stafford, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">373 Garrisonville Rd, Stafford, VA 22554</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:5406579100">(540) 657-9100</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="lees-barber-shop/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/lees-barber-shop/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Barbershop" data-city="Dumfries" data-name="mosaic barber & beauty salon ii | dumfries, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Dumfries</span>
+              <span class="badge badge-cat">Barbershop</span>
+            </div>
+            <h2 class="card-title">Mosaic Barber & Beauty Salon II | Dumfries, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">18123 Triangle Shopping Plaza, Dumfries, VA 22026</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7032218360">(703) 221-8360</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="mosaic-barber/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/mosaic-barber/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Barbershop" data-city="Woodbridge" data-name="prince william barbershop | woodbridge, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Woodbridge</span>
+              <span class="badge badge-cat">Barbershop</span>
+            </div>
+            <h2 class="card-title">Prince William Barbershop | Woodbridge, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">14466 Jefferson Davis Hwy, Woodbridge, VA 22191</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7039441071">(703) 944-1071</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="prince-william-barbershop/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/prince-william-barbershop/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Barbershop" data-city="Dumfries" data-name="quantico center barber | dumfries, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Dumfries</span>
+              <span class="badge badge-cat">Barbershop</span>
+            </div>
+            <h2 class="card-title">Quantico Center Barber | Dumfries, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">3922 Fettler Park Dr, Dumfries, VA 22025</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034412359">(703) 441-2359</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="quantico-center-barber/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/quantico-center-barber/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+        <article class="prospect-card" data-category="Auto Repair" data-city="Triangle" data-name="t & c auto repair | triangle, va">
+          <div class="card-header">
+            <div class="badges">
+              <span class="badge badge-city">Triangle</span>
+              <span class="badge badge-cat">Auto Repair</span>
+            </div>
+            <h2 class="card-title">T & C Auto Repair | Triangle, VA</h2>
+            
+          </div>
+          
+          <div class="card-details">
+            <p class="detail-row"><span class="icon">📍</span> <span class="text">18405 Jefferson Davis Hwy, Triangle, VA 22172</span></p>
+            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034451147">(703) 445-1147</a></p>
+          </div>
+
+          <div class="card-actions">
+            <a class="btn btn-primary" href="tc-auto-repair/">
+              <span>View Mobile Site</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn btn-secondary copy-btn" data-url="https://jean-matias.github.io/local-shops-preview/tc-auto-repair/">
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </article>
+        
+    </div>
+  </main>
+
+  <div id="toast" class="toast">Link copied to clipboard!</div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const chips = document.querySelectorAll('.chip');
+    const cards = document.querySelectorAll('.prospect-card');
+    const statsBar = document.getElementById('statsBar');
+    const toast = document.getElementById('toast');
+
+    let currentFilter = 'all';
+
+    function filterCards() {
+      const query = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const name = card.dataset.name;
+        const cat = card.dataset.category;
+        const city = card.dataset.city.toLowerCase();
+
+        const matchesQuery = !query || name.includes(query) || cat.toLowerCase().includes(query) || city.includes(query);
+        const matchesFilter = currentFilter === 'all' || cat === currentFilter;
+
+        if (matchesQuery && matchesFilter) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      statsBar.textContent = `Showing ${visible} of ${cards.length} businesses`;
+    }
+
+    searchInput.addEventListener('input', filterCards);
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.filter;
+        filterCards();
+      });
+    });
+
+    // Copy link buttons
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const url = btn.dataset.url;
+        navigator.clipboard.writeText(url).then(() => {
+          const origText = btn.innerHTML;
+          btn.classList.add('btn-copied');
+          btn.innerHTML = '<span>Copied!</span>';
+          
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2500);
+
+          setTimeout(() => {
+            btn.classList.remove('btn-copied');
+            btn.innerHTML = origText;
+          }, 2000);
+        }).catch(err => {
+          prompt('Copy link:', url);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
