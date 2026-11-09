@@ -21,12 +21,20 @@
       --radius: 14px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      overflow-x: clip;
+      width: 100%;
+    }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
       padding-bottom: 60px;
+    }
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
     header {
       background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
@@ -70,7 +78,7 @@
       padding: 14px 18px;
       border-radius: 12px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s ease;
     }
     .search-input:focus {
       border-color: var(--primary);
@@ -90,7 +98,7 @@
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
     .chip.active, .chip:hover {
       background: var(--primary);
@@ -123,7 +131,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
     .prospect-card:hover {
       border-color: var(--primary);
@@ -169,6 +177,11 @@
       align-items: flex-start;
       gap: 8px;
     }
+    .detail-icon {
+      flex-shrink: 0;
+      color: var(--primary);
+      margin-top: 3px;
+    }
     .phone-link {
       color: var(--text);
       text-decoration: none;
@@ -192,7 +205,13 @@
       cursor: pointer;
       border: none;
       min-height: 44px;
-      transition: background 0.2s;
+      transition: background-color 0.2s ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
     }
     .btn-primary {
       flex: 1;
@@ -244,7 +263,7 @@
     <p class="header-sub">Stafford · Dumfries · Triangle · Woodbridge corridor. Tap to launch any working mobile prototype or copy direct client links.</p>
     
     <div class="controls">
-      <input type="search" id="searchInput" class="search-input" placeholder="Search by business name, city, or trade..." autocomplete="off">
+      <input type="search" id="searchInput" class="search-input" placeholder="Search by business name, city, or trade…" autocomplete="off">
       <div class="filter-chips">
         <button class="chip active" data-filter="all">All (11)</button>
         <button class="chip" data-filter="Barbershop">Barbershops</button>
@@ -260,19 +279,19 @@
     <div class="stats-bar" id="statsBar">Showing all 11 businesses</div>
     <div class="catalog-grid" id="catalogGrid">
       
-        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="cafe miki | woodbridge, va">
+        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="cafe miki">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Bakery & Cafe</span>
             </div>
-            <h2 class="card-title">Cafe Miki | Woodbridge, VA</h2>
+            <h2 class="card-title">Cafe Miki</h2>
             
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">14569 Potomac Mills Road, Woodbridge, Virginia 22192</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7038888046">(703) 888-8046</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">14569 Potomac Mills Road, Woodbridge, Virginia 22192</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7038888046">(703) 888-8046</a></p>
           </div>
 
           <div class="card-actions">
@@ -286,19 +305,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Shoe Repair" data-city="Woodbridge" data-name="domenick's shoe repair | woodbridge, va">
+        <article class="prospect-card" data-category="Shoe Repair" data-city="Woodbridge" data-name="domenick's shoe repair">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Shoe Repair</span>
             </div>
-            <h2 class="card-title">Domenick's Shoe Repair | Woodbridge, VA</h2>
-            
+            <h2 class="card-title">Domenick's Shoe Repair</h2>
+            <p class="card-tagline">SHOE REPAIR & LEATHER CARE · WOODBRIDGE, VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">4615 Dale Blvd, Woodbridge, VA 22193</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7036224844">(703) 622-4844</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">4615 Dale Blvd, Woodbridge, VA 22193</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7036224844">(703) 622-4844</a></p>
           </div>
 
           <div class="card-actions">
@@ -312,19 +331,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Cleaners & Tailoring" data-city="Woodbridge" data-name="early bird cleaners | stafford, va">
+        <article class="prospect-card" data-category="Cleaners & Tailoring" data-city="Woodbridge" data-name="early bird cleaners">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Cleaners & Tailoring</span>
             </div>
-            <h2 class="card-title">Early Bird Cleaners | Stafford, VA</h2>
-            
+            <h2 class="card-title">Early Bird Cleaners</h2>
+            <p class="card-tagline">DRY CLEANING, ALTERATIONS & UNIFORM TAILORING · STAFFORD, VA</p>
           </div>
           
           <div class="card-details">
             
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:5406595201">(540) 659-5201</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:5406595201">(540) 659-5201</a></p>
           </div>
 
           <div class="card-actions">
@@ -338,19 +357,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="el molino panaderia | woodbridge, va">
+        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="el molino panaderia">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Bakery & Cafe</span>
             </div>
-            <h2 class="card-title">El Molino Panaderia | Woodbridge, VA</h2>
-            
+            <h2 class="card-title">El Molino Panaderia</h2>
+            <p class="card-tagline">Bakery & Panaderia, Woodbridge VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">14450 Richmond Hwy, Woodbridge, VA 22191</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034901711">(703) 490-1711</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">14450 Richmond Hwy, Woodbridge, VA 22191</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7034901711">(703) 490-1711</a></p>
           </div>
 
           <div class="card-actions">
@@ -364,19 +383,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="farm cafe grill deli | woodbridge, va">
+        <article class="prospect-card" data-category="Bakery & Cafe" data-city="Woodbridge" data-name="farm cafe grill deli">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Bakery & Cafe</span>
             </div>
-            <h2 class="card-title">Farm Cafe Grill Deli | Woodbridge, VA</h2>
-            
+            <h2 class="card-title">Farm Cafe Grill Deli</h2>
+            <p class="card-tagline">GRILL & DELI</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">14850 Farm Creek Drive, Woodbridge, VA 22191</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034903204">(703) 490-3204</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">14850 Farm Creek Drive, Woodbridge, VA 22191</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7034903204">(703) 490-3204</a></p>
           </div>
 
           <div class="card-actions">
@@ -390,19 +409,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Barbershop" data-city="Woodbridge" data-name="kim's barber shop | stafford, va">
+        <article class="prospect-card" data-category="Barbershop" data-city="Woodbridge" data-name="kim's barber shop">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Barbershop</span>
             </div>
-            <h2 class="card-title">Kim's Barber Shop | Stafford, VA</h2>
-            
+            <h2 class="card-title">Kim's Barber Shop</h2>
+            <p class="card-tagline">WALK-IN BARBERSHOP · STAFFORD, VA</p>
           </div>
           
           <div class="card-details">
             
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:5402880123">(540) 288-0123</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:5402880123">(540) 288-0123</a></p>
           </div>
 
           <div class="card-actions">
@@ -416,19 +435,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Barbershop" data-city="Stafford" data-name="lee's barber shop | stafford, va">
+        <article class="prospect-card" data-category="Barbershop" data-city="Stafford" data-name="lee's barber shop">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Stafford</span>
               <span class="badge badge-cat">Barbershop</span>
             </div>
-            <h2 class="card-title">Lee's Barber Shop | Stafford, VA</h2>
-            
+            <h2 class="card-title">Lee's Barber Shop</h2>
+            <p class="card-tagline">NEIGHBORHOOD BARBERSHOP · STAFFORD, VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">373 Garrisonville Rd, Stafford, VA 22554</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:5406579100">(540) 657-9100</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">373 Garrisonville Rd, Stafford, VA 22554</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:5406579100">(540) 657-9100</a></p>
           </div>
 
           <div class="card-actions">
@@ -442,19 +461,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Barbershop" data-city="Dumfries" data-name="mosaic barber & beauty salon ii | dumfries, va">
+        <article class="prospect-card" data-category="Barbershop" data-city="Dumfries" data-name="mosaic barber & beauty salon ii">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Dumfries</span>
               <span class="badge badge-cat">Barbershop</span>
             </div>
-            <h2 class="card-title">Mosaic Barber & Beauty Salon II | Dumfries, VA</h2>
-            
+            <h2 class="card-title">Mosaic Barber & Beauty Salon II</h2>
+            <p class="card-tagline">BARBERSHOP & BEAUTY SALON · DUMFRIES, VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">18123 Triangle Shopping Plaza, Dumfries, VA 22026</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7032218360">(703) 221-8360</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">18123 Triangle Shopping Plaza, Dumfries, VA 22026</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7032218360">(703) 221-8360</a></p>
           </div>
 
           <div class="card-actions">
@@ -468,19 +487,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Barbershop" data-city="Woodbridge" data-name="prince william barbershop | woodbridge, va">
+        <article class="prospect-card" data-category="Barbershop" data-city="Woodbridge" data-name="prince william barbershop">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Woodbridge</span>
               <span class="badge badge-cat">Barbershop</span>
             </div>
-            <h2 class="card-title">Prince William Barbershop | Woodbridge, VA</h2>
-            
+            <h2 class="card-title">Prince William Barbershop</h2>
+            <p class="card-tagline">Modern Barbershop & Grooming, Woodbridge VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">14466 Jefferson Davis Hwy, Woodbridge, VA 22191</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7039441071">(703) 944-1071</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">14466 Jefferson Davis Hwy, Woodbridge, VA 22191</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7039441071">(703) 944-1071</a></p>
           </div>
 
           <div class="card-actions">
@@ -494,19 +513,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Barbershop" data-city="Dumfries" data-name="quantico center barber | dumfries, va">
+        <article class="prospect-card" data-category="Barbershop" data-city="Dumfries" data-name="quantico center barber">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Dumfries</span>
               <span class="badge badge-cat">Barbershop</span>
             </div>
-            <h2 class="card-title">Quantico Center Barber | Dumfries, VA</h2>
-            
+            <h2 class="card-title">Quantico Center Barber</h2>
+            <p class="card-tagline">TRADITIONAL BARBERSHOP · DUMFRIES, VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">3922 Fettler Park Dr, Dumfries, VA 22025</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034412359">(703) 441-2359</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">3922 Fettler Park Dr, Dumfries, VA 22025</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7034412359">(703) 441-2359</a></p>
           </div>
 
           <div class="card-actions">
@@ -520,19 +539,19 @@
           </div>
         </article>
         
-        <article class="prospect-card" data-category="Auto Repair" data-city="Triangle" data-name="t & c auto repair | triangle, va">
+        <article class="prospect-card" data-category="Auto Repair" data-city="Triangle" data-name="t & c auto repair">
           <div class="card-header">
             <div class="badges">
               <span class="badge badge-city">Triangle</span>
               <span class="badge badge-cat">Auto Repair</span>
             </div>
-            <h2 class="card-title">T & C Auto Repair | Triangle, VA</h2>
-            
+            <h2 class="card-title">T & C Auto Repair</h2>
+            <p class="card-tagline">INDEPENDENT AUTO REPAIR & MECHANICS · TRIANGLE, VA</p>
           </div>
           
           <div class="card-details">
-            <p class="detail-row"><span class="icon">📍</span> <span class="text">18405 Jefferson Davis Hwy, Triangle, VA 22172</span></p>
-            <p class="detail-row"><span class="icon">📞</span> <a class="phone-link" href="tel:7034451147">(703) 445-1147</a></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> <span class="text">18405 Jefferson Davis Hwy, Triangle, VA 22172</span></p>
+            <p class="detail-row"><svg class="detail-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> <a class="phone-link" href="tel:7034451147">(703) 445-1147</a></p>
           </div>
 
           <div class="card-actions">
